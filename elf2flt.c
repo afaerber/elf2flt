@@ -420,7 +420,7 @@ dump_symbols(symbols, number_of_symbols);
 	relsize = bfd_get_reloc_upper_bound(rel_bfd, r);
 	if (relsize <= 0) {
 		if (verbose)
-			printf("%s(%d): no relocation entries section=0x%x\n",
+			printf("%s(%d): no relocation entries section=%s\n",
 				__FILE__, __LINE__, r->name);
 		continue;
 	}
