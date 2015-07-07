@@ -69,7 +69,7 @@ all: $(PROGS)
 
 # We need to declare the link explicitly because make only provides
 # implicit rules when EXEEXT is set to nothing
-link = $(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LDLIBS)
+link = $(CC) $(CFLAGS) -o $@ $^ $(LDLIBS) $(LDFLAGS)
 
 $(PROG_ELF2FLT): elf2flt.o compress.o stubs.o
 	$(link)
