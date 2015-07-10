@@ -384,6 +384,7 @@ static int do_final_link(void)
 	if (shared_lib_id && strtol(shared_lib_id, NULL, 0) != 0)
 		exec_or_ret(objcopy, NULL, NULL, "--localize-hidden", "--weaken", output_gdb);
 
+	if (!streq(output_gdb, "/dev/null")) {
 	exec_or_ret(nm, tmp_file, NULL, "-p", output_gdb);
 	in = xfopen(tmp_file, "r");
 	while ((len = getline(&line, &alloc, in)) > 0) {
@@ -400,6 +401,7 @@ static int do_final_link(void)
 	else
 		exec_or_ret(elf2flt, NULL, &flt_options,
 			"-o", output_file, "-r", rel_output);
+	}
 
 	return 0;
 }
@@ -561,6 +563,9 @@ int main(int argc, char *argv[])
 		fatal("-shared used without passing a shared library ID");
 
 	/* Otherwise link & convert to flt.  */
+	if (streq(output_file, "/dev/null"))
+		output_gdb = output_file;
+	else
 	output_gdb = concat(output_file, ".gdb", NULL);
 	tmp_file = make_temp_file(NULL);
 	status = do_final_link();
