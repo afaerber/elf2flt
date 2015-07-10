@@ -639,12 +639,17 @@ dump_symbols(symbols, number_of_symbols);
 					relocation_needed = 1;
 					break;
 				case R_ARM_REL32:
+				case R_ARM_JUMP24:
+				case R_ARM_CALL:
 				case R_ARM_THM_PC11:
 				case R_ARM_THM_PC22:
+				case R_ARM_THM_JUMP24:
 				case R_ARM_PC24:
 				case R_ARM_PLT32:
 				case R_ARM_GOTPC:
 				case R_ARM_GOT32:
+				case R_ARM_PREL31:
+				case R_ARM_NONE:
 					relocation_needed = 0;
 					break;
 				default:
